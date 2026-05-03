@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+google-cloud-aiplatform
+google-cloud-bigquery
+google-cloud-discoveryengine
+pydantic
+pydantic-settings
+python-dotenv
+pandas
