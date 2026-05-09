@@ -1,4 +1,5 @@
 import React from 'react';
+import './TutorCard.css';
 
 const TutorCard = ({ id, title, description, icon: Icon, isExpert, onClick }) => (
   <div className={`tutor-card ${isExpert ? 'expert' : ''}`} onClick={() => onClick(id)}>

@@ -60,15 +60,14 @@ const App = () => {
           <button 
             onClick={() => setCurrentView('dashboard')} 
             className={`nav-item ${currentView === 'dashboard' ? 'active' : ''}`}
-            style={{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer' }}
           >
             <Home /> Home
           </button>
-          <button className="nav-item" style={{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer' }}>
+          <button className="nav-item">
             <BarChart2 /> Dominio
           </button>
         </nav>
-        <button className="ai-help-btn" style={{ marginTop: 'auto' }}>
+        <button className="ai-help-btn">
           <MessageSquare size={18} /> Ayuda IA
         </button>
       </aside>
@@ -91,7 +90,7 @@ const App = () => {
               <p>Tu precisión subió un 15% ayer. ¿Hoy resolvemos Termodinámica con PureTech?</p>
             </section>
             <section>
-              <h2 style={{ marginBottom: '1.5rem', fontSize: '1.2rem', color: 'var(--text-secondary)' }}>ELEGIR TUTOR</h2>
+              <h2 className="section-title">ELEGIR TUTOR</h2>
               <div className="tutor-grid">
                 {tutors.map(tutor => (
                   <TutorCard key={tutor.id} {...tutor} onClick={handleTutorClick} />

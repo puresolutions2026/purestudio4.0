@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Camera, Minimize2, Maximize2, Zap } from 'lucide-react';
 import { useChat } from '../../hooks/useChat';
+import './ChatRoom.css';
 
 const ChatRoom = ({ agentId, isNoDistractions, toggleDistractions, onSuggestion }) => {
   const [inputValue, setInputValue] = useState("");
@@ -36,7 +37,7 @@ const ChatRoom = ({ agentId, isNoDistractions, toggleDistractions, onSuggestion 
         {messages.map(m => (
           <div key={m.id} className={`message ${m.role}`}>
             {m.hasImage && (
-              <div style={{ background: '#E2E8F0', padding: '10px', borderRadius: '8px', marginBottom: '8px' }}>
+              <div className="image-preview-msg">
                 🖼️ Archivo Vision Analizado
               </div>
             )}

@@ -1,0 +1,64 @@
+/* Tutor Card Styling */
+.tutor-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 20px;
+  border: 1px solid #E2E8F0;
+  transition: var(--transition);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.tutor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow);
+  border-color: var(--vibrant-orange);
+}
+
+.tutor-card.expert {
+  border: 1.5px solid rgba(255, 140, 0, 0.3);
+}
+
+.tutor-card.expert::after {
+  content: 'EXPERTO';
+  position: absolute;
+  top: 10px;
+  right: -25px;
+  background: var(--vibrant-orange);
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 25px;
+  transform: rotate(45deg);
+  font-weight: 700;
+}
+
+.tutor-icon {
+  width: 50px;
+  height: 50px;
+  background: rgba(26, 60, 108, 0.05);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  color: var(--academic-blue);
+  transition: var(--transition);
+}
+
+.tutor-card:hover .tutor-icon {
+  background: var(--light-orange);
+  color: var(--vibrant-orange);
+}
+
+.tutor-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.tutor-card p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
