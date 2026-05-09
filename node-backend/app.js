@@ -8,9 +8,16 @@ const askRoute = require('./routes/ask');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middlewares
+// Middlewares flexibles para desarrollo
 const corsOptions = {
-  origin: 'http://localhost:5180',
+  origin: (origin, callback) => {
+    // Permitir cualquier puerto de localhost o peticiones sin origen (como Postman)
+    if (!origin || origin.startsWith('http://localhost:')) {
+      callback(null, true);
+    } else {
+      callback(new Error('No permitido por CORS'));
+    }
+  },
   methods: ['GET', 'POST'],
   credentials: true
 };

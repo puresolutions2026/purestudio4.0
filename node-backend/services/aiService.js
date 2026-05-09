@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const vertexAI = new VertexAI({
     project: process.env.PROJECT_ID,
-    location: 'us-central1'
+    location: process.env.LOCATION || 'us-central1'
 });
 
 async function generateResponse(query, context, imageData = null) {

@@ -1,0 +1,28 @@
+ANÁLISIS Y DESGLOSE DE PURESTUDIO 4.0 - DASHBOARD DEL ESTUDIANTE
+
+Se ha realizado una refactorización completa del componente monolítico App.jsx para mejorar la escalabilidad y mantenibilidad.
+
+CAMBIOS REALIZADOS:
+
+1. DESACOPLAMIENTO DE COMPONENTES:
+   - PromotionModal.jsx: Se movió a src/components/common/. Maneja la lógica visual de los desafíos proactivos.
+   - TutorCard.jsx: Se movió a src/components/dashboard/. Componente reutilizable para la selección de tutores.
+   - ChatRoom.jsx: Se movió a src/components/chat/. Ahora es un componente puramente visual que consume lógica de un hook.
+
+2. CREACIÓN DE HOOKS PERSONALIZADOS:
+   - useChat.js: Se creó en src/hooks/. 
+     * Encapsula el estado de los mensajes.
+     * Gestiona la comunicación con la API local (http://localhost:3000/ask).
+     * Implementa el efecto de "typing" progresivo para las respuestas de la IA.
+     * Maneja las sugerencias automáticas de agentes.
+
+3. OPTIMIZACIÓN DE APP.JSX:
+   - Se eliminaron más de 150 líneas de lógica interna.
+   - Ahora actúa como el "Orquestador de Rutas y Estado Global".
+   - Facilita la adición de nuevas vistas en el futuro.
+
+4. MEJORAS TÉCNICAS:
+   - Se separó la lógica de negocio (peticiones API) de la lógica de presentación (UI).
+   - Se preparó la estructura para soportar múltiples niveles de usuarios en el futuro (Layouts).
+
+El sistema sigue funcionando igual para el usuario final, pero ahora el código es modular y fácil de mantener.
