@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { 
   Home, 
   BarChart2, 
@@ -15,15 +16,17 @@ import {
 import PromotionModal from './components/common/PromotionModal';
 import TutorCard from './components/dashboard/TutorCard';
 import ChatRoom from './components/chat/ChatRoom';
+import Sidebar from './components/layout/Sidebar';
+import StudentDashboard from './pages/student/StudentDashboard';
 
 const App = () => {
   const [userName] = useState("Seba");
   const [xp] = useState(5100);
-  const [currentView, setCurrentView] = useState('dashboard');
-  const [selectedAgent, setSelectedAgent] = useState(null);
   const [isNoDistractions, setIsNoDistractions] = useState(false);
   const [showPromotion, setShowPromotion] = useState(false);
   const [suggestedAgent, setSuggestedAgent] = useState(null);
+  const [selectedAgent, setSelectedAgent] = useState(null);
+  const navigate = useNavigate();
 
   const tutors = [
     { id: 'semilla', title: 'Semilla (1°-3°)', description: 'Fundamentos básicos.', icon: Compass },
@@ -36,7 +39,7 @@ const App = () => {
 
   const handleTutorClick = (id) => { 
     setSelectedAgent(id); 
-    setCurrentView('chat'); 
+    navigate('/chat');
   };
 
   const handleSuggestion = (agent) => {
@@ -54,58 +57,47 @@ const App = () => {
         />
       )}
 
-      <aside className="sidebar">
-        <div className="sidebar-logo">PureStudio 4.0</div>
-        <nav className="sidebar-nav">
-          <button 
-            onClick={() => setCurrentView('dashboard')} 
-            className={`nav-item ${currentView === 'dashboard' ? 'active' : ''}`}
-          >
-            <Home /> Home
-          </button>
-          <button className="nav-item">
-            <BarChart2 /> Dominio
-          </button>
-        </nav>
-        <button className="ai-help-btn">
-          <MessageSquare size={18} /> Ayuda IA
-        </button>
-      </aside>
+      <Sidebar setCurrentView={(view) => navigate(view === 'dashboard' ? '/' : `/${view}`)} />
 
       <main className="main-content">
-        {!isNoDistractions && (
-          <header className="top-bar">
-            <h2>{currentView === 'dashboard' ? 'Centro de Dominio' : 'Sala de Chat'}</h2>
-            <div className="top-bar-right">
-              <div className="streak-badge"><TrendingUp size={18} /> {xp} XP</div>
-              <div className="user-avatar">{userName.charAt(0)}</div>
-            </div>
-          </header>
-        )}
-        
-        {currentView === 'dashboard' ? (
-          <>
-            <section className="welcome-banner">
-              <h1>¡Hola, {userName}! 👋</h1>
-              <p>Tu precisión subió un 15% ayer. ¿Hoy resolvemos Termodinámica con PureTech?</p>
-            </section>
-            <section>
-              <h2 className="section-title">ELEGIR TUTOR</h2>
-              <div className="tutor-grid">
-                {tutors.map(tutor => (
-                  <TutorCard key={tutor.id} {...tutor} onClick={handleTutorClick} />
-                ))}
-              </div>
-            </section>
-          </>
-        ) : (
-          <ChatRoom 
-            agentId={selectedAgent} 
-            isNoDistractions={isNoDistractions}
-            toggleDistractions={() => setIsNoDistractions(!isNoDistractions)}
-            onSuggestion={handleSuggestion}
-          />
-        )}
+        <Routes>
+          <Route path="/" element={
+            <>
+              {!isNoDistractions && (
+                <header className="top-bar">
+                  <h2>Centro de Dominio</h2>
+                  <div className="top-bar-right">
+                    <div className="streak-badge"><TrendingUp size={18} /> {xp} XP</div>
+                    <div className="user-avatar">{userName.charAt(0)}</div>
+                  </div>
+                </header>
+              )}
+              <section className="welcome-banner">
+                <h1>¡Hola, {userName}! 👋</h1>
+                <p>Tu precisión subió un 15% ayer. ¿Hoy resolvemos Termodinámica con PureTech?</p>
+              </section>
+              <section>
+                <h2 className="section-title">ELEGIR TUTOR</h2>
+                <div className="tutor-grid">
+                  {tutors.map(tutor => (
+                    <TutorCard key={tutor.id} {...tutor} onClick={handleTutorClick} />
+                  ))}
+                </div>
+              </section>
+            </>
+          } />
+          
+          <Route path="/chat" element={
+            <ChatRoom 
+              agentId={selectedAgent} 
+              isNoDistractions={isNoDistractions}
+              toggleDistractions={() => setIsNoDistractions(!isNoDistractions)}
+              onSuggestion={handleSuggestion}
+            />
+          } />
+
+          <Route path="/student" element={<StudentDashboard userName={userName} />} />
+        </Routes>
       </main>
     </div>
   );
